@@ -1,0 +1,20 @@
+# Dependências
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# Builds
+dist/
+.DS_Store
+
+# Credenciais e variáveis de ambiente
+.env
+.env.local
+.env.*.local
+serviceAccountKey.json
+
+# Outros arquivos temporários
+*.tmp
+*.swp
