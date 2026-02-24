@@ -129,6 +129,8 @@ function initializeFirebase() {
       console.log("🔑 Usando credenciais do arquivo .env (PRODUÇÃO)");
       try {
         serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS);
+        serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+
       } catch (parseError) {
         console.error("❌ Erro ao fazer parse das credenciais JSON:");
         console.error(`   ${parseError.message}`);

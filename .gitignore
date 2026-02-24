@@ -10,10 +10,10 @@ dist/
 .DS_Store
 
 # Credenciais e variáveis de ambiente
-.env
-.env.local
-.env.*.local
-serviceAccountKey.json
+# .env
+# .env.local
+# .env.*.local
+# serviceAccountKey.json
 
 # Outros arquivos temporários
 *.tmp
