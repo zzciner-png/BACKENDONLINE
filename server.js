@@ -90,9 +90,14 @@ console.log("✅ CORS habilitado para:");
 allowedOrigins.forEach(origin => console.log(`   - ${origin}`));
 console.log();
 
-// Middlewares
+// ==========================================
+// 📦 MIDDLEWARES - PARSERS NATIVOS DO EXPRESS
+// ==========================================
+
 app.use(compression());
+// ✅ SUBSTITUIÇÃO: express.json() no lugar de body-parser.json()
 app.use(express.json({ limit: "10mb" }));
+// ✅ SUBSTITUIÇÃO: express.urlencoded() no lugar de body-parser.urlencoded()
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 // ==========================================
@@ -161,31 +166,12 @@ function initializeFirebase() {
     firebaseInitialized = true;
     console.log("✅ Firebase Admin inicializado com sucesso\n");
 
-    testDatabaseConnection();
     return true;
 
   } catch (error) {
     console.error("❌ Erro ao inicializar Firebase Admin:");
     console.error(`   ${error.message}\n`);
     return false;
-  }
-}
-
-async function testDatabaseConnection() {
-  try {
-    const db = admin.database();
-    const snapshot = await db.ref(".info/connected").once("value");
-    
-    if (snapshot.val() === true) {
-      databaseConnected = true;
-      console.log("✅ Conexão com Firebase Database estabelecida\n");
-    } else {
-      databaseConnected = false;
-      console.warn("⚠️  Firebase Database pode estar offline\n");
-    }
-  } catch (error) {
-    databaseConnected = false;
-    console.warn(`⚠️  Erro ao testar conexão: ${error.message}\n`);
   }
 }
 
@@ -196,6 +182,26 @@ if (!initializeFirebase()) {
 
 const db = admin.database();
 const auth = admin.auth();
+
+// ==========================================
+// 🧪 VALIDAR CONEXÃO COM FIREBASE DATABASE
+// ==========================================
+
+console.log("🧪 Testando conexão com Firebase Database...\n");
+
+db.ref("test_connection").set({ status: "ok", timestamp: new Date().toISOString() })
+  .then(() => {
+    databaseConnected = true;
+    console.log("✅ Conexão com Firebase Database confirmada");
+    console.log("   ✓ Teste de escrita bem-sucedido\n");
+  })
+  .catch(err => {
+    databaseConnected = false;
+    console.error("❌ Erro ao conectar ao Firebase Database:");
+    console.error(`   ${err.message}`);
+    console.error("   ⚠️  Verifique as credenciais e a URL do banco de dados\n");
+    process.exit(1);
+  });
 
 // ==========================================
 // ✅ FUNÇÕES DE VALIDAÇÃO
@@ -964,5 +970,3 @@ process.on("SIGTERM", () => {
     process.exit(0);
   });
 });
-
-export default app;
