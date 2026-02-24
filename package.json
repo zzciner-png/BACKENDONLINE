@@ -1,32 +1,33 @@
 {
-  "name": "nzila-hub-backend",
+  "name": "nzila-hub-api",
   "version": "2.0.0",
-  "description": "Backend Node.js para Nzila Hub - API de Investimentos",
+  "description": "Backend da Plataforma Nzila Hub - API de Investimentos",
   "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "test": "node --eval \"console.log('Testes não implementados')\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "nzila",
-    "hub",
-    "api",
+    "express",
     "firebase",
+    "nzila",
+    "api",
     "nodejs"
   ],
-  "author": "Nzila Hub",
+  "author": "Nzila Hub Team",
   "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
-  },
   "dependencies": {
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "firebase-admin": "^12.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }
